@@ -37,23 +37,23 @@ from Blender import Draw, Text, Library, Object
 
 choice = Draw.PupMenu("Copy object(s) to buffer|Paste object(s) from buffer")
 if choice == 1:
-	objs = Object.GetSelected()
-	if len(objs) == 0:
-		Draw.PupMenu("Please select at least 1 object!")
-	else:
-		txt = open(Blender.Get("datadir") + "/buffer","w")
-		txt.write(Blender.Get("filename") +"\n")
-		for item in objs: 
-			txt.write(item.getName() + "\n")  
-		txt.close()       	
-elif choice == 2:	
-	txt = Text.Load(Blender.Get("datadir") + "/buffer")
-	buffer = txt.asLines()	
-	Library.Open(buffer[0])
-	buffer.pop(0)
-	for item in buffer:
-		Library.Load(item, "Object", 0)
-	Library.Update()
-	Library.Close()
-	Text.unlink(txt)
-	Blender.Redraw()
+  objs = Object.GetSelected()
+  if len(objs) == 0:
+    Draw.PupMenu("Please select at least 1 object!")
+  else:
+    txt = open(Blender.Get("datadir") + "/buffer","w")
+    txt.write(Blender.Get("filename") +"\n")
+    for item in objs:
+      txt.write(item.getName() + "\n")
+    txt.close()
+elif choice == 2:
+  txt = Text.Load(Blender.Get("datadir") + "/buffer")
+  buffer = txt.asLines()
+  Library.Open(buffer[0])
+  buffer.pop(0)
+  for item in buffer:
+    Library.Load(item, "Object", 0)
+  Library.Update()
+  Library.Close()
+  Text.unlink(txt)
+  Blender.Redraw()
